@@ -1,11 +1,8 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "api/chat.js", "use": "@vercel/node" },
-    { "src": "index.html", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "source": "/api/chat", "dest": "api/chat.js" },
-    { "source": "/(.*)", "dest": "/index.html" }
-  ]
+  "name": "canadapathway-api",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0"
+  }
 }
