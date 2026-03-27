@@ -1,8 +1,6 @@
 {
-  "name": "canadapathway-api",
-  "version": "1.0.0",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
-    "@google/generative-ai": "^0.x.x"
+    "@google/generative-ai": "^0.21.0"
   }
 }
