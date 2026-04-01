@@ -1,6 +1,9 @@
 {
+  "version": 2,
   "outputDirectory": "public",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/api/health", "dest": "/api/health.js" },
+    { "src": "/api/chat", "dest": "/api/chat.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
