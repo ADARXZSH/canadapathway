@@ -44,7 +44,7 @@ module.exports = async function handler(req, res) {
     // Initialize Gemini
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.0-flash",
       generationConfig: { 
         temperature: 0.75, 
         topP: 0.92, 
@@ -72,11 +72,6 @@ module.exports = async function handler(req, res) {
 
   } catch (error) {
     console.error("Gemini API Error:", error);
-    
-    let errorMessage = "The chatbot is currently resting. Please try again in a moment.";
-    if (error.message?.includes("API_KEY")) errorMessage = "Invalid API Key configuration.";
-    if (error.message?.includes("quota")) errorMessage = "Too many requests. Please wait 30 seconds.";
-
-    return res.status(500).json({ error: errorMessage });
+    return res.status(500).json({ error: `Error: ${error.message || String(error)}` });
   }
 };
