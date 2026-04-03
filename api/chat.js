@@ -80,7 +80,7 @@ module.exports = async function handler(req, res) {
       callWithRetry(async () => {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({
-          model: "gemini-2.0-flash-lite",
+          model: "gemini-1.5-flash",
           generationConfig: { temperature: 0.75, topP: 0.92, topK: 40, maxOutputTokens: 2000 },
         });
 
@@ -106,9 +106,12 @@ module.exports = async function handler(req, res) {
     console.error("Gemini API Error after retries:", error);
 
     let msg = "Something went wrong. Please try again.";
-    if (error.message?.includes("API_KEY") || error.status === 400) msg = "Invalid API Key.";
+    if (error.message?.includes("API_KEY")) msg = "Invalid API Key.";
+    else if (error.status === 400) msg = `Bad request: ${error.message}`;
     else if (error.message?.includes("quota") || error.status === 429) msg = "Rate limit reached. Please wait a moment.";
     else if (error.status === 503 || error.message?.includes("overloaded")) msg = "Gemini is overloaded. Please try again in a few seconds.";
+    else if (error.status === 404) msg = "Model not found. Check API configuration.";
+    else if (error.status === 403) msg = "API key does not have access to this model.";
 
     return res.status(500).json({ error: msg });
   }
