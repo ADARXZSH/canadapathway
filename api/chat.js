@@ -80,7 +80,7 @@ module.exports = async function handler(req, res) {
       callWithRetry(async () => {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({
-          model: "gemini-2.0-flash",
+          model: "gemini-2.0-flash-lite",
           generationConfig: { temperature: 0.75, topP: 0.92, topK: 40, maxOutputTokens: 2000 },
         });
 
